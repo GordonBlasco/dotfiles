@@ -3,7 +3,6 @@
 -- Convenience modifier
 local hyper = {"ctrl", "alt", "shift", "cmd"}
 
-
 -- Hotkey to program mapping:
 local appHotkeys = {
     O = "Obsidian",
@@ -27,4 +26,4 @@ hs.hotkey.bind(hyper, "R", function()
 end)
 
 -- Confirm it loaded
-hs.alert.show("Hammerspoon loaded from dotfiles 🚀")
+hs.alert.show("🐷 Hammed Up 🐷")
