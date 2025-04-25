@@ -6,8 +6,12 @@ local hyper = {"ctrl", "alt", "shift", "cmd"}
 -- Hotkey to program mapping:
 local appHotkeys = {
     O = "Obsidian",
-    K = "Google Chrome",
-    J = "Visual Studio Code"
+    U = "Google Chrome",
+    I = "Visual Studio Code",
+    P = "Microsoft OneNote",
+    Q = "Microsoft Teams",
+    W = "Microsoft Outlook",
+    E = "Slack",
 }
 
 for key, app in pairs(appHotkeys) do
