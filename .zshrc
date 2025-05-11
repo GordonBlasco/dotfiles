@@ -103,9 +103,16 @@
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-. "$HOME/.local/bin/env"
+#. "$HOME/.local/bin/env"
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/gord/.rd/bin:$PATH"
+#export PATH="/Users/gord/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+# Source env file if it exists
+[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
+
+# Set up sane PATH (optional: append custom stuff)
+export PATH="$HOME/.local/bin:$PATH"
+
+# Set a decent prompt
 alias k='kubectl'
