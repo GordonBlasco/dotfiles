@@ -106,7 +106,7 @@
 #. "$HOME/.local/bin/env"
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-#export PATH="/Users/gord/.rd/bin:$PATH"
+export PATH="/Users/gord/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 # Source env file if it exists
 . "$HOME/.local/bin/env"
