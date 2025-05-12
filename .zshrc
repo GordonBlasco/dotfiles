@@ -115,3 +115,8 @@ export PATH="/Users/gord/.rd/bin:$PATH"
 export PATH="/Users/gord/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 alias k='kubectl'
+
+
+if command -v direnv > /dev/null ; then
+  eval "$(direnv hook zsh)"
+fi
