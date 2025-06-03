@@ -2,3 +2,4 @@
 .config/nvim/lazyvim.json
 .config/nvim/lazy-lock.json
 .config/nvim/LICENSE
+.DS_Store
