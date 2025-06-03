@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+# Remove existing Neovim config that conflicts with chezmoi external
+rm -rf "$HOME/.config/nvim"
+
 # Install chezmoi if not present
 if ! command -v chezmoi >/dev/null; then
   echo "Installing chezmoi..."
