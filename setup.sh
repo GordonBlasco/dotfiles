@@ -10,7 +10,7 @@ if ! command -v chezmoi >/dev/null; then
 fi
 
 # Use HTTPS clone to avoid SSH key issues
-chezmoi init https://github.com/gordonblasco/dotfiles-demo.git --apply
+chezmoi init https://github.com/gordonblasco/dotfiles.git --apply
 
 # Set default shell to zsh if available
 if command -v zsh >/dev/null; then
