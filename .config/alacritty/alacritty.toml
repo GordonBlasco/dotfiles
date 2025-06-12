@@ -16,3 +16,8 @@ option_as_alt = "Both"
 normal.family = "JetBrainsMono Nerd Font Mono"
 
 size = 18
+
+[general]
+import = [
+    "~/.config/alacritty/themes/themes/everforest_dark.toml"
+]
