@@ -19,5 +19,5 @@ size = 18
 
 [general]
 import = [
-    "~/.config/alacritty/themes/themes/everforest_dark.toml"
+    "~/.config/alacritty/themes/everforest_dark.toml"
 ]
