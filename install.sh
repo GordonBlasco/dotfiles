@@ -12,6 +12,20 @@ if ! command -v chezmoi >/dev/null; then
   export PATH="$HOME/.local/bin:$PATH"
 fi
 
+# Install mise if not present
+if ! command -v mise >/dev/null; then
+  curl https://mise.run | sh
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
+# Ensure mise installs tools from .tool-versions
+mise install
+
+# Bootstrap Neovim plugins (assumes you’re using LazyVim or similar)
+if command -v nvim >/dev/null; then
+  nvim --headless "+Lazy! sync" +qa || true
+fi
+
 # Use HTTPS clone to avoid SSH key issues
 chezmoi init https://github.com/gordonblasco/dotfiles.git --apply
 
