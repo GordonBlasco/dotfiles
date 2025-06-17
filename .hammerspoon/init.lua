@@ -12,6 +12,7 @@ local appHotkeys = {
     Q = "Microsoft Teams",
     W = "Microsoft Outlook",
     E = "Slack",
+    T = "Alacritty"
 }
 
 for key, app in pairs(appHotkeys) do
