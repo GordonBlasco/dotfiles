@@ -12,7 +12,13 @@ return {
       require "configs.lspconfig"
     end,
   },
-
+  {
+    "paretje/nvim-man",
+    cmd = { "Man" },
+    config = function()
+      require "nvim-man"
+    end,
+  },
   -- test new blink
   -- { import = "nvchad.blink.lazyspec" },
 
