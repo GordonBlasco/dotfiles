@@ -26,3 +26,5 @@ bindkey -v # enable vi mode in ZSH
 # add the following lines after bindkey -v:
 bindkey ^R history-incremental-search-backward 
 bindkey ^S history-incremental-search-forward
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
