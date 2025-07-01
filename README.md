@@ -1,5 +1,4 @@
 # Dotfiles for MacOS and Linux.
----
 
 Trying to stick to the everforest theme as much as possible.
 
