@@ -32,12 +32,12 @@ error_symbol = "[❯](red)"
 vimcmd_symbol = "[❮](green)"
 
 [git_branch]
-format = "[$branch] ($style)"
+format = "[$branch]($style)"
 style = "red"
 
 [git_status]
-format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
-style = "cyan"
+format = "[[(!$conflicted$untracked$modified$staged$renamed$deleted)](red) ($ahead_behind$stashed)]($style)"
+style = "red"
 conflicted = "​"
 untracked = "​"
 modified = "​"
