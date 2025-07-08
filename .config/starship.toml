@@ -24,6 +24,9 @@ trim_at = "."
 disabled = false
 
 [directory]
+truncate_to_repo = true
+truncation_length = 10
+truncation_symbol = "•/"
 style = "yellow"
 
 [character]
