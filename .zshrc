@@ -4,6 +4,22 @@ export PATH="/Users/gord/.rd/bin:$PATH"
 alias k='kubectl'
 
 
+# OS Specific Section
+case "$OSTYPE" in
+  darwin*)
+    # macOS-specific commands
+    export PATH="/opt/homebrew/bin:$PATH"
+    ;;
+  linux*)
+    # Linux-specific commands
+    if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+      eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    fi
+    ;;
+esac
+
+
+
 if command -v direnv > /dev/null ; then
   eval "$(direnv hook zsh)"
 fi
@@ -27,4 +43,4 @@ bindkey -v # enable vi mode in ZSH
 bindkey ^R history-incremental-search-backward 
 bindkey ^S history-incremental-search-forward
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(starship init zsh)"

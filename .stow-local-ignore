@@ -1,2 +1,4 @@
 .DS_STORE
 install.sh
+.git
+.gitignore
