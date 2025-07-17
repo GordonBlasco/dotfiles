@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Ensure Chrome is running
+open -a "Google Chrome"
+
+# Wait a moment for Chrome to open
+sleep 0.5
+
+
+# Open a new window with two tabs
+osascript <<EOF
+tell application "Google Chrome"
+    make new window
+    set URL of active tab of window 1 to "https://google.com"
+    tell window 1
+        make new tab with properties {URL:"https://news.ycombinator.com"}
+    end tell
+    activate
+end tell
+EOF

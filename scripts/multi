@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Ensure Chrome is running
+open -a "Google Chrome"
+
+# Wait a moment for Chrome to open
+
+
+
+# Open a new window with two tabs
+osascript <<EOF
+tell application "Google Chrome"
+    make new window
+    set URL of active tab of window 1 to "https://www.notion.so/Dashboard-1-231ca032e34e803f847df62756d8df35"
+    tell window 1
+        make new tab with properties {URL:"https://calendar.google.com/calendar/u/0/r"}
+        set active tab index to 1
+    end tell
+    activate
+end tell
+EOF

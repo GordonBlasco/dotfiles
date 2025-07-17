@@ -3,6 +3,9 @@ export PATH="/Users/gord/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 alias k='kubectl'
 
+# add scripts
+export PATH="$HOME/dotfiles/scripts:$PATH"
+
 
 # OS Specific Section
 case "$OSTYPE" in
