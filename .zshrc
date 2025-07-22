@@ -47,3 +47,5 @@ bindkey ^R history-incremental-search-backward
 bindkey ^S history-incremental-search-forward
 
 eval "$(starship init zsh)"
+
+PS1=$'\n\n\n\n\n\n\n\n\e[8A'"$PS1"
