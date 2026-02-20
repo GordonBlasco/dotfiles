@@ -1,0 +1,141 @@
+#!/usr/bin/env bash
+set -e
+
+if [ -z "$1" ]; then
+    echo "Error: Please supply a .ipynb file"
+    echo "Usage: nb_clean notebook.ipynb"
+    exit 1
+fi
+
+INPUT="$1"
+
+if [[ ! "$INPUT" == *.ipynb ]]; then
+    echo "Error: Input must be a .ipynb file"
+    exit 1
+fi
+
+BASE=$(basename "$INPUT" .ipynb)
+OUTDIR="${BASE}_readable"
+
+echo "📁 Creating output directory: $OUTDIR"
+mkdir -p "$OUTDIR"
+
+# =====================================================================================
+# 1. Strip metadata with nbstripout
+# =====================================================================================
+
+if ! command -v nbstripout >/dev/null 2>&1; then
+    echo "❌ nbstripout not installed. Run: pipx install nbstripout"
+    exit 1
+fi
+
+echo "🧼 Stripping metadata..."
+cp "$INPUT" "$OUTDIR/${BASE}_clean.ipynb"
+nbstripout "$OUTDIR/${BASE}_clean.ipynb"
+
+
+# =====================================================================================
+# 2. HTML + Markdown exports via nbconvert
+# =====================================================================================
+
+if ! command -v jupyter >/dev/null 2>&1; then
+    echo "❌ jupyter not found. Install with: pipx install jupyterlab"
+    exit 1
+fi
+
+echo "📤 Exporting to HTML..."
+jupyter nbconvert --to html "$INPUT" --output-dir "$OUTDIR" >/dev/null
+
+echo "📤 Exporting to Markdown..."
+jupyter nbconvert --to markdown "$INPUT" --output-dir "$OUTDIR" >/dev/null
+
+# =====================================================================================
+# 3. Detect and copy nbconvert image folder
+# =====================================================================================
+
+FOUND_IMG_DIR=$(find "$(dirname "$INPUT")" "$OUTDIR" -maxdepth 1 -type d \
+    -name "${BASE}_files" -o -name "${BASE}_images" -o -name "notebook_files" \
+    2>/dev/null | head -n 1)
+
+if [ -n "$FOUND_IMG_DIR" ]; then
+    echo "📁 Found image folder: $FOUND_IMG_DIR"
+
+    DEST_IMG_DIR="$OUTDIR/$(basename "$FOUND_IMG_DIR")"
+
+    # If already inside OUTDIR, do nothing
+    case "$FOUND_IMG_DIR" in
+        "$OUTDIR"/*)
+            echo "📸 Image folder already inside output directory. No copy needed."
+            ;;
+        *)
+            echo "📸 Copying images → $DEST_IMG_DIR"
+            rm -rf "$DEST_IMG_DIR"
+            cp -R "$FOUND_IMG_DIR" "$DEST_IMG_DIR"
+            ;;
+    esac
+else
+    echo "⚠️ WARNING: nbconvert image folder not found. PDF images may not appear."
+fi
+
+
+# =====================================================================================
+# 4. Inject YAML header for Unicode + math font support
+# =====================================================================================
+
+YAML_HEADER="---
+mainfont: \"Latin Modern Roman\"
+monofont: \"Latin Modern Mono\"
+mathfont: \"Latin Modern Math\"
+---
+
+"
+
+# Prepend YAML to the markdown
+MD_FILE="$OUTDIR/${BASE}.md"
+TMP_MD="$OUTDIR/${BASE}_tmp.md"
+echo "$YAML_HEADER" > "$TMP_MD"
+cat "$MD_FILE" >> "$TMP_MD"
+mv "$TMP_MD" "$MD_FILE"
+
+
+# =====================================================================================
+# 5. PDF export using Pandoc + Tectonic (run inside OUTDIR)
+# =====================================================================================
+
+echo "📄 Attempting PDF export via Pandoc..."
+PDF_FILE="$OUTDIR/${BASE}.pdf"
+
+if ! command -v pandoc >/dev/null 2>&1; then
+    echo "⚠️ pandoc not installed — skipping PDF export."
+else
+    if command -v tectonic >/dev/null 2>&1; then
+        ENGINE="--pdf-engine=tectonic"
+        echo "🖨 Using Tectonic as PDF engine"
+    elif command -v weasyprint >/dev/null 2>&1; then
+        ENGINE="--pdf-engine=weasyprint"
+        echo "🖨 Using WeasyPrint as PDF engine"
+    else
+        ENGINE=""
+        echo "⚠️ No supported PDF engine found."
+        echo "   Install Tectonic: brew install tectonic"
+    fi
+
+    echo "📝 Converting Markdown → PDF inside $OUTDIR..."
+    (
+        cd "$OUTDIR"
+        pandoc "${BASE}.md" -o "${BASE}.pdf" $ENGINE || echo "⚠️ PDF conversion failed."
+    )
+    echo "📄 PDF created (if successful): $PDF_FILE"
+fi
+
+
+# =====================================================================================
+# 6. Zip everything
+# =====================================================================================
+
+echo "📦 Creating ZIP archive..."
+zip -qr "${OUTDIR}.zip" "$OUTDIR"
+
+echo "✅ Done!"
+echo "Readable versions saved in: $OUTDIR"
+echo "ZIP archive created at: ${OUTDIR}.zip"

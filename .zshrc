@@ -1,6 +1,3 @@
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/gord/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 alias k='kubectl'
 
 # add scripts
@@ -49,3 +46,17 @@ bindkey ^S history-incremental-search-forward
 eval "$(starship init zsh)"
 
 PS1=$'\n\n\n\n\n\n\n\n\e[8A'"$PS1"
+ 
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/gord/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+# Created by `pipx` on 2025-11-22 20:59:30
+export PATH="$PATH:/Users/gord/.local/bin"
+export PATH="$HOME/.pyenv/bin:$PATH"
+pyenv() {
+  unset -f pyenv
+  eval "$(command pyenv init -)"
+  pyenv "$@"
+}

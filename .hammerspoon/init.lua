@@ -41,6 +41,55 @@ for key, app in pairs(appHotkeys) do
 end
 
 
+-- Quick Note Function
+function quickNote()
+    -- Show text input dialog
+    local button, text = hs.dialog.textPrompt(
+        "Quick Note", 
+        "Enter your note:", 
+        "", 
+        "Save", 
+        "Cancel"
+    )
+
+    -- Check if user clicked Save and entered text
+    if button == "Save" and text ~= "" then
+        -- Define the path to your notes file
+        local notesPath = os.getenv("HOME") .. "/Documents/quick-notes.md"
+
+        -- Get current timestamp
+        local timestamp = os.date("%Y-%m-%d %H:%M:%S")
+
+        -- Format the note entry
+        local noteEntry = string.format("## %s\n%s\n\n", timestamp, text)
+
+        -- Open file in append mode
+        local file = io.open(notesPath, "a")
+        if file then
+            file:write(noteEntry)
+            file:close()
+
+            -- Show success notification
+            hs.notify.new({
+                title = "Quick Note",
+                informativeText = "Note saved successfully!",
+                withdrawAfter = 2
+            }):send()
+        else
+            -- Show error notification
+            hs.notify.new({
+                title = "Quick Note Error",
+                informativeText = "Could not save note to file",
+                withdrawAfter = 3
+            }):send()
+        end
+    end
+end
+
+-- Bind the function to a hotkey (Cmd+Shift+N)
+hs.hotkey.bind(hyper, "j", quickNote)
+
+
 -- bulkier version
 -- hs.hotkey.bind(hyper, "K", function()
 --     hs.application.launchOrFocus("Google Chrome")

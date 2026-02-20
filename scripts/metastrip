@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# strip-metadata.sh
+# Usage: ./strip-metadata.sh input.jpg [output.jpg]
+
+set -e
+
+INPUT="$1"
+OUTPUT="$(dirname "$INPUT")/stripped_$(basename "$INPUT")"
+
+if ! command -v exiftool &>/dev/null; then
+  echo "Error: exiftool not found. Install it with 'sudo apt install exiftool' or 'brew install exiftool'."
+  exit 1
+fi
+
+exiftool -all= -overwrite_original -o "$OUTPUT" "$INPUT"
+
+echo "✅ Metadata stripped. Output saved to: $OUTPUT"

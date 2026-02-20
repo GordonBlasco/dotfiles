@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Usage: note your text here
+# This will prepend the note (with timestamp) after the YAML frontmatter in your .md file.
+
+FILE="/Users/gord/vault/2. Areas/Logs/Quick Notes.md"   # <-- change this to your actual file path
+NOTE_TEXT="$*"
+DATE_STR=$(date +"**%Y/%m/%d %H:%M %p**")
+
+TMPFILE=$(mktemp)
+
+# Split file: copy yaml header first, then insert note, then rest of file
+awk -v date="$DATE_STR" -v note="$NOTE_TEXT" '
+BEGIN {inHeader=1}
+/^---$/ && NR!=1 {inHeader=0; print; print date " - " note; next}
+{print}
+' "$FILE" > "$TMPFILE"
+
+mv "$TMPFILE" "$FILE"
