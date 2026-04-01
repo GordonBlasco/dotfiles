@@ -1,2 +1,4 @@
-# Neovim dots
-This is a fork of the modular kickstart: https://github.com/dam9000/kickstart-modular.nvim
+# 💤 LazyVim
+
+A starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
+Refer to the [documentation](https://lazyvim.github.io/installation) to get started.
