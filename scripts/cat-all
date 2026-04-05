@@ -1,6 +1,5 @@
 #!/bin/bash
-
-# Print all files in a directory with headers and spacing
+# desc: Print all files in a directory with headers and spacing
 TARGET_DIR="${1:-.}"
 
 find "$TARGET_DIR" -type f | sort | while read -r file; do

@@ -1,3 +1,13 @@
 #!/bin/bash
+# desc: List all scripts with their descriptions
 
-ls -la ~/dotfiles/scripts/*
+SCRIPTS_DIR=~/dotfiles/scripts
+
+printf "%-22s %s\n" "SCRIPT" "DESCRIPTION"
+printf "%-22s %s\n" "------" "-----------"
+
+for file in "$SCRIPTS_DIR"/*; do
+  name=$(basename "$file")
+  desc=$(grep -m1 '^# desc:' "$file" 2>/dev/null | sed 's/^# desc: *//')
+  printf "%-22s %s\n" "$name" "${desc:-(no description)}"
+done

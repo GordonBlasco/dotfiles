@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# desc: Prepend a timestamped note into Quick Notes.md after its YAML frontmatter
 # Usage: note your text here
 # This will prepend the note (with timestamp) after the YAML frontmatter in your .md file.
 

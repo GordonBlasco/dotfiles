@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# desc: Open Chrome with Notion dashboard and Google Calendar tabs
 # Ensure Chrome is running
 open -a "Google Chrome"
 

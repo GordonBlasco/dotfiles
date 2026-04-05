@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# desc: Open Chrome with Google and Hacker News tabs
 # Ensure Chrome is running
 open -a "Google Chrome"
 

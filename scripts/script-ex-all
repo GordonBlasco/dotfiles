@@ -1,4 +1,5 @@
 #!/bin/bash
+# desc: Make all scripts in ~/dotfiles/scripts executable
 
 for file in ~/dotfiles/scripts/*; do
   if [ -f "$file" ]; then

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# desc: Export a Jupyter notebook to clean HTML, Markdown, and PDF via nbconvert + Pandoc
 set -e
 
 if [ -z "$1" ]; then

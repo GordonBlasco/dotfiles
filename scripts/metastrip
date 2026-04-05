@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# desc: Strip EXIF metadata from an image file using exiftool
 # strip-metadata.sh
 # Usage: ./strip-metadata.sh input.jpg [output.jpg]
 
