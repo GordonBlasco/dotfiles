@@ -24,21 +24,30 @@ Install:andUse("WindowScreenLeftAndRight", {
 
 -- Hotkey to program mapping:
 local appHotkeys = {
-    O = "Obsidian",
+    O = "obsidian://open?vault=vault",
     U = "Google Chrome",
     I = "Visual Studio Code",
     P = "Microsoft OneNote",
     Q = "Microsoft Teams",
     W = "Microsoft Outlook",
     E = "Slack",
-    T = "Alacritty"
+    T = "Alacritty",
+    Y = "obsidian://open?vault=content"
 }
 
 for key, app in pairs(appHotkeys) do
     hs.hotkey.bind(hyper, key, function()
-        hs.application.launchOrFocus(app)
+        if app:match("^obsidian://") then
+            hs.urlevent.openURL(app)
+            hs.timer.doAfter(0.3, function()
+                hs.application.launchOrFocus("Obsidian")
+            end)
+        else
+            hs.application.launchOrFocus(app)
+        end
     end)
 end
+
 
 
 -- Quick Note Function
@@ -116,4 +125,4 @@ hs.hotkey.bind(hyper, "R", function()
 end)
 
 -- Confirm it loaded
-hs.alert.show("🐷 Hammed Up 🐷")
+hs.alert.show("🐷 Hammed Ups 🐷")
