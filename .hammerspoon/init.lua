@@ -1,103 +1,97 @@
 -- ~/dotfiles/hammerspoon/init.lua
 
-local hyper = {"ctrl", "alt", "shift", "cmd"}
+local hyper = { "ctrl", "alt", "shift", "cmd" }
 
-local window = require 'hs.window'
+local window = require("hs.window")
 hs.loadSpoon("SpoonInstall")
 
-Install=spoon.SpoonInstall
+Install = spoon.SpoonInstall
 Install:andUse("WindowGrid", {
-    config = { gridGeometries = { { "10x3" } } },
-    hotkeys = { show_grid = {{"alt"}, "g"} },
-    start = true
+	config = { gridGeometries = { { "10x3" } } },
+	hotkeys = { show_grid = { { "alt" }, "g" } },
+	start = true,
 })
 
 Install:andUse("WindowScreenLeftAndRight", {
-    hotkeys = {
-        screen_left  = { hyper, "s" },
-        screen_right = { hyper, "d" },
-    }
+	hotkeys = {
+		screen_left = { hyper, "s" },
+		screen_right = { hyper, "d" },
+	},
 })
 
 -- Convenience modifier
 
-
 -- Hotkey to program mapping:
 local appHotkeys = {
-    O = "obsidian://open?vault=vault",
-    U = "Google Chrome",
-    I = "Visual Studio Code",
-    P = "Microsoft OneNote",
-    Q = "Microsoft Teams",
-    W = "Microsoft Outlook",
-    E = "Slack",
-    T = "Alacritty",
-    Y = "obsidian://open?vault=content"
+	O = "obsidian://open?vault=vault",
+	U = "Google Chrome",
+	I = "Visual Studio Code",
+	P = "Microsoft OneNote",
+	Q = "Microsoft Teams",
+	W = "Microsoft Outlook",
+	E = "Slack",
+	T = "Alacritty",
+	Y = "obsidian://open?vault=notes",
 }
 
 for key, app in pairs(appHotkeys) do
-    hs.hotkey.bind(hyper, key, function()
-        if app:match("^obsidian://") then
-            hs.urlevent.openURL(app)
-            hs.timer.doAfter(0.3, function()
-                hs.application.launchOrFocus("Obsidian")
-            end)
-        else
-            hs.application.launchOrFocus(app)
-        end
-    end)
+	hs.hotkey.bind(hyper, key, function()
+		if app:match("^obsidian://") then
+			hs.urlevent.openURL(app)
+			hs.timer.doAfter(0.3, function()
+				hs.application.launchOrFocus("Obsidian")
+			end)
+		else
+			hs.application.launchOrFocus(app)
+		end
+	end)
 end
-
-
 
 -- Quick Note Function
 function quickNote()
-    -- Show text input dialog
-    local button, text = hs.dialog.textPrompt(
-        "Quick Note", 
-        "Enter your note:", 
-        "", 
-        "Save", 
-        "Cancel"
-    )
+	-- Show text input dialog
+	local button, text = hs.dialog.textPrompt("Quick Note", "Enter your note:", "", "Save", "Cancel")
 
-    -- Check if user clicked Save and entered text
-    if button == "Save" and text ~= "" then
-        -- Define the path to your notes file
-        local notesPath = os.getenv("HOME") .. "/Documents/quick-notes.md"
+	-- Check if user clicked Save and entered text
+	if button == "Save" and text ~= "" then
+		-- Define the path to your notes file
+		local notesPath = os.getenv("HOME") .. "/vault/00 Inbox/quick-notes.md"
 
-        -- Get current timestamp
-        local timestamp = os.date("%Y-%m-%d %H:%M:%S")
+		-- Get current timestamp
+		local timestamp = os.date("%Y-%m-%d %H:%M:%S")
 
-        -- Format the note entry
-        local noteEntry = string.format("## %s\n%s\n\n", timestamp, text)
+		-- Format the note entry
+		local noteEntry = string.format("## %s\n%s\n\n", timestamp, text)
 
-        -- Open file in append mode
-        local file = io.open(notesPath, "a")
-        if file then
-            file:write(noteEntry)
-            file:close()
+		-- Open file in append mode
+		local file = io.open(notesPath, "a")
+		if file then
+			file:write(noteEntry)
+			file:close()
 
-            -- Show success notification
-            hs.notify.new({
-                title = "Quick Note",
-                informativeText = "Note saved successfully!",
-                withdrawAfter = 2
-            }):send()
-        else
-            -- Show error notification
-            hs.notify.new({
-                title = "Quick Note Error",
-                informativeText = "Could not save note to file",
-                withdrawAfter = 3
-            }):send()
-        end
-    end
+			-- Show success notification
+			hs.notify
+				.new({
+					title = "Quick Note",
+					informativeText = "Note saved successfully!",
+					withdrawAfter = 2,
+				})
+				:send()
+		else
+			-- Show error notification
+			hs.notify
+				.new({
+					title = "Quick Note Error",
+					informativeText = "Could not save note to file",
+					withdrawAfter = 3,
+				})
+				:send()
+		end
+	end
 end
 
 -- Bind the function to a hotkey (Cmd+Shift+N)
 hs.hotkey.bind(hyper, "j", quickNote)
-
 
 -- bulkier version
 -- hs.hotkey.bind(hyper, "K", function()
@@ -121,7 +115,7 @@ hs.hotkey.bind(hyper, "j", quickNote)
 -- end)
 
 hs.hotkey.bind(hyper, "R", function()
-    hs.reload()
+	hs.reload()
 end)
 
 -- Confirm it loaded
