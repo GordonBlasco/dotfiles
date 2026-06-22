@@ -1,0 +1,4 @@
+#!/bin/bash
+# desc: Open dotfiles repo in VSCode
+
+code ~/dotfiles

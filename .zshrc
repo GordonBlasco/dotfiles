@@ -1,4 +1,5 @@
 alias k='kubectl'
+alias claude="npx @anthropic-ai/claude-code"
 
 # add scripts
 export PATH="$HOME/dotfiles/scripts:$PATH"
@@ -44,6 +45,7 @@ bindkey ^R history-incremental-search-backward
 bindkey ^S history-incremental-search-forward
 
 eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
 
 PS1=$'\n\n\n\n\n\n\n\n\e[8A'"$PS1"
  
@@ -73,21 +75,6 @@ else
         export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
     fi
 fi
-
-alacritty-center() {
-  local cols=${1:-120}
-  local lines=${2:-30}
-  local screen_w=3440
-  local screen_h=1440
-  local char_w=10.8
-  local line_h=20
-  local x=$(echo "($screen_w - $cols * $char_w) / 2" | bc)
-  local y=$(echo "($screen_h - $lines * $line_h) / 2" | bc)
-  sed -i '' "s/position = .*/position = { x = $x, y = $y }/" ~/.config/alacritty/alacritty.toml
-  echo "Set position to x=$x, y=$y"
-}
-
-
 unset __conda_setup
 # <<< conda initialize <<<
-
+#
