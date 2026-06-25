@@ -5,8 +5,14 @@ nic() {
   session_name="${session_name//[^a-zA-Z0-9_-]/_}"
 
   if [[ -n "$TMUX" ]]; then
-    echo "Already in a tmux session. Detach first or run from outside tmux."
-    return 1
+    tmux new-window -n "$session_name" -c "$PWD"
+    tmux split-window -v -c "$PWD" -l 20%
+    tmux split-window -h -t 1 -c "$PWD" -l 30%
+    tmux send-keys -t 1 'nvim' C-m
+    tmux send-keys -t 2 'claude' C-m
+    tmux select-pane -t 1
+    tmux resize-pane -Z -t 1
+    return
   fi
 
   if tmux has-session -t "$session_name" 2>/dev/null; then
@@ -20,6 +26,7 @@ nic() {
   tmux send-keys -t "$session_name":1.1 'nvim' C-m
   tmux send-keys -t "$session_name":1.2 'claude' C-m
   tmux select-pane -t "$session_name":1.1
+  tmux resize-pane -Z -t "$session_name":1.1
   tmux attach-session -t "$session_name"
   }
 
