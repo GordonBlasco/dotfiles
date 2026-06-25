@@ -44,8 +44,15 @@ bindkey -v # enable vi mode in ZSH
 bindkey ^R history-incremental-search-backward 
 bindkey ^S history-incremental-search-forward
 
-eval "$(starship init zsh)"
-eval "$(zoxide init zsh)"
+_cache_init() {
+  local cache="$HOME/.cache/zsh-${1}-init.zsh"
+  if [[ ! -f "$cache" || "$(command -v $1)" -nt "$cache" ]]; then
+    "$1" init zsh > "$cache"
+  fi
+  source "$cache"
+}
+_cache_init starship
+_cache_init zoxide
 
 PS1=$'\n\n\n\n\n\n\n\n\e[8A'"$PS1"
  
@@ -63,18 +70,16 @@ pyenv() {
   pyenv "$@"
 }
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
+conda() {
+  unset -f conda
+  local __conda_setup
+  __conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
+  if [ $? -eq 0 ]; then
     eval "$__conda_setup"
-else
-    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-#
+  elif [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+    . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+  else
+    export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
+  fi
+  conda "$@"
+}
