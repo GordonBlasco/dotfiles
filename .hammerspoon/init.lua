@@ -23,15 +23,19 @@ Install:andUse("WindowScreenLeftAndRight", {
 
 -- Hotkey to program mapping:
 local appHotkeys = {
-	O = "obsidian://open?vault=vault",
-	U = "Google Chrome",
-	I = "Visual Studio Code",
-	P = "Microsoft OneNote",
+	-- left hand
 	Q = "Microsoft Teams",
 	W = "Microsoft Outlook",
 	E = "Slack",
-	T = "Alacritty",
+	-- R resets hammerspoon
+	T = "Alacritty", -- terminal
+	
+	-- right hand
 	Y = "obsidian://open?vault=notes",
+	U = "Google Chrome",
+	I = "Visual Studio Code",
+	O = "obsidian://open?vault=vault",
+	P = "Microsoft OneNote",
 }
 
 for key, app in pairs(appHotkeys) do
