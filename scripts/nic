@@ -11,7 +11,6 @@ nic() {
     tmux send-keys -t 1 'nvim' C-m
     tmux send-keys -t 2 'claude' C-m
     tmux select-pane -t 1
-    tmux resize-pane -Z -t 1
     return
   fi
 
@@ -26,8 +25,7 @@ nic() {
   tmux send-keys -t "$session_name":1.1 'nvim' C-m
   tmux send-keys -t "$session_name":1.2 'claude' C-m
   tmux select-pane -t "$session_name":1.1
-  tmux resize-pane -Z -t "$session_name":1.1
   tmux attach-session -t "$session_name"
-  }
+}
 
 nic "$@"

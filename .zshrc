@@ -1,5 +1,4 @@
 alias k='kubectl'
-alias claude="npx @anthropic-ai/claude-code"
 
 # add scripts
 export PATH="$HOME/dotfiles/scripts:$PATH"
@@ -83,3 +82,9 @@ conda() {
   fi
   conda "$@"
 }
+export PATH="/path/to/Odin/folder:$PATH"
+export PATH="$HOME/dev/odin:$PATH"
+
+# >>> Added by Spyder >>>
+alias uninstall-spyder=/Users/gord/Library/spyder-6/uninstall-spyder.sh
+# <<< Added by Spyder <<<

@@ -1,2 +1,5 @@
 .DS_Store
 .config/nvim/lazy-lock.json
+.config/AWSVPNClient
+.config/.jira/.config.yml
+.config/op/config
