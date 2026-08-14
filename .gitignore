@@ -5,3 +5,4 @@
 .config/op/config
 .config/herdr/herdr-client.log
 .config/herdr/herdr-server.log
+nvim.log
