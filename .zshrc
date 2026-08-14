@@ -84,7 +84,7 @@ conda() {
 }
 export PATH="/path/to/Odin/folder:$PATH"
 export PATH="$HOME/dev/odin:$PATH"
-
+export PATH="$PATH:$(go env GOPATH)/bin"
 # >>> Added by Spyder >>>
 alias uninstall-spyder=/Users/gord/Library/spyder-6/uninstall-spyder.sh
 # <<< Added by Spyder <<<
