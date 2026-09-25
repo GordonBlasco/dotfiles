@@ -1,7 +1,7 @@
 alias k='kubectl'
 
 # add scripts
-export PATH="$HOME/dotfiles/scripts:$PATH"
+export PATH="$HOME/scripts:$PATH"
 
 
 # OS Specific Section

@@ -4,7 +4,7 @@
     {
       "id": "w4",
       "custom_name": null,
-      "identity_cwd": "/Users/gord/dev/devdeck",
+      "identity_cwd": "/Users/gord/dotfiles",
       "public_pane_numbers": {
         "4": 1
       },
@@ -21,7 +21,7 @@
           },
           "panes": {
             "4": {
-              "cwd": "/Users/gord/dev/devdeck"
+              "cwd": "/Users/gord/dotfiles"
             }
           },
           "zoomed": false,
