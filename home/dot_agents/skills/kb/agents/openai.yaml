@@ -1,0 +1,7 @@
+interface:
+  display_name: "Personal Knowledge Base"
+  short_description: "Read, save, or maintain personal knowledge"
+  default_prompt: "Use $kb to work with my personal knowledge base."
+
+policy:
+  allow_implicit_invocation: false

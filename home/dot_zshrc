@@ -1,5 +1,9 @@
 alias k='kubectl'
 
+pical() {
+  PI_CODING_AGENT_DIR="$HOME/.pical/agent" command pi "$@"
+}
+
 # add scripts
 export PATH="$HOME/scripts:$PATH"
 
@@ -53,8 +57,9 @@ _cache_init() {
 _cache_init starship
 _cache_init zoxide
 
-PS1=$'\n\n\n\n\n\n\n\n\e[8A'"$PS1"
- 
+# starship re-renders the prompt (~100ms) on every vi mode switch; drop its widget
+zle -D zle-keymap-select
+
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/gord/.rd/bin:$PATH"
